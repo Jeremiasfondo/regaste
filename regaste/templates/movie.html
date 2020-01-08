@@ -49,13 +49,14 @@
                          <div class="col-md-3">
                              <div class="movie">
                                   <img src="{% static "images/poster.jpg" %}" alt="movies">
-                                 <h1>Hello</h1>
+                                 <h1>{{movie.title}}</h1>
                         </div>
                       <form  action="{% url 'payment' %}" method="post">
                         {% csrf_token %}
                         <label for="number">Numero: </label>
                         <input id="number" type="text" name="number" value="">
-                        <input type="hidden" name="movieid" value="">
+                        <input type="hidden" name="movieid" value="{{movie.id}}">
+                        <input type="hidden" name="movieprice" value="{{movie.price}}">
                         <input type="submit" value="Enviar">
                     </form>
                       </form>

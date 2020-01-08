@@ -9,7 +9,7 @@ class category(models.Model):
     def __str__(self):
         return "{} - {} ".format(self.title, self.description)
 
-class trailer(models.Model):
+class moviedb(models.Model):
     title = models.CharField(max_length=255, null=False)
     minutes = models.CharField(max_length=255, null=False)
     release_date  = models.DateField()
@@ -17,6 +17,7 @@ class trailer(models.Model):
     productor = models.CharField(max_length=255, null=False)
     picture = models.ImageField(upload_to = 'templates/images/movie/')
     url = models.URLField(max_length=225)
+    price = models.CharField(max_length=255, null=False)
     description = models.TextField()
     category   =  models.ForeignKey(category, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -26,15 +27,15 @@ class trailer(models.Model):
         return "{} - {}  -  {}".format(self.title, self.release_date, self.category)
 
 
-class moviedb(models.Model):
+class trailer(models.Model):
+    title = models.CharField(max_length=255, null=False)
     url = models.URLField(max_length=225)
-    trailer   =  models.ForeignKey(trailer, on_delete=models.CASCADE)
-    price = models.CharField(max_length=255, null=False)
+    movie_id   =  models.ForeignKey(moviedb, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 class payment(models.Model):
-    movie   =  models.ForeignKey(moviedb, on_delete=models.CASCADE)
+    movie_id    =  models.ForeignKey(moviedb, on_delete=models.CASCADE)
     status = models.BooleanField() 
     created_date = models.DateTimeField(auto_now_add=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
